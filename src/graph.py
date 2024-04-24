@@ -2,6 +2,7 @@
 CONST_VERTEX_INDEX = 0
 CONST_EDGE_INDEX = 1
 
+
 def read_graph(filename: str):
     """Le uma estrutura de grafo de um arquivo e retorna a estrutura."""
     with open(filename, "rt") as input_file:
