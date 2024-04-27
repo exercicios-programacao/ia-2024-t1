@@ -1,10 +1,11 @@
 """Utilize este arquivo para depurar seus algoritmos."""
 
 from graph import read_graph
-from busca import a_star
+from busca import dfs
 
 
 if __name__ == "__main__":
-    grafo = read_graph("vertices.txt")
-    vertices_avaliados, custo, caminho = a_star(grafo, 1, 100)
-    print(vertices_avaliados, custo, caminho)
+    grafo = read_graph("C:\www\lasalle\ia-2024-t1\mapas\mini_map.txt")
+
+    caminho = dfs(grafo, 0, 7)
+    print(caminho)
