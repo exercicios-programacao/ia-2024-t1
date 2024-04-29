@@ -1,7 +1,23 @@
-"""Implementação da busca em profundidade."""
+from util import haversine
 
-from util import reverse_path
+def dfs(graph, start: int, goal: int):
+    assert(start in graph)
+    assert(goal in graph)
+    
+    visited = set()
+    stack = [(start, [start])]
+    
+    while stack:
+        v, path = stack.pop()
+        if v == goal:
+            path_length = sum(haversine(graph[path[i]][0][0], graph[path[i]][0][1], graph[path[i + 1]][0][0], graph[path[i + 1]][0][1]) for i in range(len(path) - 1))
+            return (len(visited), path_length, path)
+        
+        if v not in visited:
+            visited.add(v)
 
-
-def dfs(graph, start: int, goal: int) -> (int, float, [int]):
-    """Busca um caminho entre start e goal usando busca em profundidade."""
+            for u in graph[v][1]:
+                if u not in visited:
+                    stack.append((u, path + [u]))
+    
+    return (len(visited), float('inf'), [])
