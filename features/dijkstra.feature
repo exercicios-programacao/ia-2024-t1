@@ -1,4 +1,4 @@
-Feature: Procura em grafo por Depth First Search
+Feature: Procura em grafo utilizando o algoritmo de Dijkstra para o menor caminho
 
 Scenario Outline: Encontrar um caminho em um grafo do arquivo "mini_map.txt" 
 Given a descrição de um grafo a partir do arquivo "mini_map.txt"
