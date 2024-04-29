@@ -15,6 +15,7 @@ class Graph:
         self.adjacency_list[node1].append((node2, cost))
         self.adjacency_list[node2].append((node1, cost))
 
+
 # Função para ler o grafo a partir de um arquivo
 def read_graph(filename: str) -> Graph:
     with open(filename, 'r') as file:
@@ -29,29 +30,25 @@ def read_graph(filename: str) -> Graph:
             graph.add_edge(node1, node2, cost)
     return graph
 
+
 # Implementação do algoritmo de Dijkstra
 def dijkstra(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
     num_nodes_explored = 0
     path_length = 0
     path = []
 
-    # Dicionário para manter o custo atual do caminho do nó inicial até cada nó
     distances = {node: float('inf') for node in range(graph.num_nodes)}
     distances[start] = 0
 
-    # Dicionário para manter o nó anterior no caminho mais curto até cada nó
     previous = {}
 
-    # Conjunto de nós não visitados
     unvisited = set(range(graph.num_nodes))
 
-    # Loop principal do algoritmo
     while unvisited:
         current = min(unvisited, key=lambda node: distances[node])
         num_nodes_explored += 1
 
         if current == goal:
-            # Reconstrói o caminho
             while current in previous:
                 path.insert(0, current)
                 current = previous[current]

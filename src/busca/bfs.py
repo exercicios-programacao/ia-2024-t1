@@ -35,13 +35,11 @@ def bfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
     path_length = 0
     path = []
 
-    # Estrutura para armazenar os nós visitados
+
     visited = set()
 
-    # Estrutura para armazenar o caminho percorrido
     parent = {}
 
-    # Fila para BFS
     queue = deque([start])
     visited.add(start)
 
@@ -51,12 +49,11 @@ def bfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
         num_nodes_explored += 1
 
         if current == goal:
-            # Reconstrói o caminho
             while current != start:
                 path.insert(0, current)
                 current = parent[current]
             path.insert(0, start)
-            path_length = len(path) - 1  # O comprimento do caminho é o número de nós menos 1
+            path_length = len(path) - 1  
             return num_nodes_explored, path_length, path
 
         for neighbor, _ in graph.adjacency_list[current]:
@@ -65,5 +62,4 @@ def bfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
                 parent[neighbor] = current
                 queue.append(neighbor)
 
-    # Se o objetivo não for alcançável, retorne um caminho vazio
     return num_nodes_explored, path_length, path

@@ -38,7 +38,6 @@ def a_star(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
     path_length = 0
     path = []
 
-    # Função de heurística (distância euclidiana)
     def heuristic(node: int) -> float:
         return euclidean_distance(graph.coordinates[node], graph.coordinates[goal])
 
@@ -52,24 +51,23 @@ def a_star(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
 
     # Loop principal do algoritmo
     while open_set:
-        current, _ = min(open_set, key=lambda x: x[1])  # Seleciona o nó com menor f(x)
+        current, _ = min(open_set, key=lambda x: x[1]) 
         num_nodes_explored += 1
 
         if current == goal:
-            # Reconstrói o caminho
             while current in came_from:
                 path.insert(0, current)
                 current = came_from[current]
             path.insert(0, start)
             return num_nodes_explored, g_score[goal], path
 
-        open_set.remove((current, g_score[current] + heuristic(current)))  # Remove o nó da fila de prioridade
+        open_set.remove((current, g_score[current] + heuristic(current))) 
 
         for neighbor, cost in graph.adjacency_list[current]:
             tentative_g_score = g_score[current] + cost
             if tentative_g_score < g_score[neighbor]:
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                open_set.append((neighbor, tentative_g_score + heuristic(neighbor)))  # Adiciona o vizinho à fila de prioridade
+                open_set.append((neighbor, tentative_g_score + heuristic(neighbor))) 
 
     return num_nodes_explored, path_length, path

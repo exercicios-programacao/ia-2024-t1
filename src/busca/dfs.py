@@ -34,7 +34,6 @@ def dfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
     path_length = 0
     path = []
 
-    # Função auxiliar para realizar a busca em profundidade recursiva
     def dfs_recursive(current, visited, parent):
         nonlocal num_nodes_explored, path_length, path
 
@@ -42,12 +41,11 @@ def dfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
         visited.add(current)
 
         if current == goal:
-            # Reconstrói o caminho
             while current != start:
                 path.insert(0, current)
                 current = parent[current]
             path.insert(0, start)
-            path_length = len(path) - 1  # O comprimento do caminho é o número de nós menos 1
+            path_length = len(path) - 1 
             return True
 
         for neighbor, _ in graph.adjacency_list[current]:
@@ -58,16 +56,13 @@ def dfs(graph: Graph, start: int, goal: int) -> Tuple[int, float, List[int]]:
 
         return False
 
-    # Conjunto para armazenar os nós visitados
     visited = set()
 
-    # Dicionário para armazenar o nó anterior no caminho
     parent = {}
 
-    # Inicia a busca em profundidade recursiva
     dfs_recursive(start, visited, parent)
 
-    # Se o objetivo não for alcançável, retorne um caminho vazio
+
     if goal not in visited:
         return num_nodes_explored, path_length, path
 
