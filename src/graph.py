@@ -17,6 +17,7 @@ def read_graph(filename: str):
         for _ in range(int(input_file.readline().strip())):
             from_vertex, to_vertex, cost = input_file.readline().strip().split()
             graph[int(from_vertex)][1].append([int(to_vertex), float(cost)])
+            graph[int(to_vertex)][1].append([int(from_vertex), float(cost)])
     return graph
 
 
