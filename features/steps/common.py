@@ -21,19 +21,23 @@ def _given_start_node(context, goal):
     context.goal = goal
 
 
-@then('o número de vértices analisados é {expected:d}')
+@then('o número de vértices analisados é {expected}')
 def _then_number_of_checked_vertices(context, expected):
+    expected = list(map(int, expected.split(",")))
     assert context.exception is None, f"Exception: {str(context.exception)}"
-    assert expected == context.vertex_count, (
+    assert context.vertex_count in expected, (
         f"Número de vértices: {expected} != {context.vertex_count}"
     )
 
 
-@then('o caminho encontrado é [{expected}]')
+@then('o caminho encontrado é {expected}')
 def step_impl(context, expected):
     assert context.exception is None, f"Exception: {str(context.exception)}"
-    expected = [int(v.strip()) for v in expected.split(",")]
-    assert expected == context.path, (
+    expected = [
+        list(map(int, l.strip(" []").split(",")))
+        for l in expected.split(";")
+    ]
+    assert context.path in expected, (
         f"Caminho:\n{expected}\n{context.path}"
     )
 

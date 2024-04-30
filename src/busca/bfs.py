@@ -14,20 +14,25 @@ def bfs(graph, start: int, goal: int) -> (int, float, [int]):
     queue = deque()
     visited = []
     queue.appendleft((start, 0))  # starts with 0 because you are in the vertex
-
+    is_first = True
     while queue:
         edge = queue.pop()
-        process(edge)
         if goal == edge[CONST_NEIGHBOR_VERTEX_INDEX]:
+            process(edge, is_first)
             return number_of_visited, length, path
-        if edge not in visited:
+        if edge[CONST_NEIGHBOR_VERTEX_INDEX] not in visited:
+            is_first = process(edge, is_first)
             visited.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
             for new_edge in get_neighbors(graph, edge[CONST_NEIGHBOR_VERTEX_INDEX]):
                 queue.appendleft(new_edge)
 
 
-def process(edge):
+def process(edge, is_first):
     global number_of_visited, length, path
-    number_of_visited += 1
+    if not is_first:
+        number_of_visited += 1
+    else:
+        is_first = False
     path.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
     length += edge[CONST_WEIGHT_INDEX]
+    return is_first
