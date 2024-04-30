@@ -1,6 +1,6 @@
 """Implementação da busca em profundidade."""
 from collections import deque
-from src.graph import get_neighbors
+from graph import get_neighbors
 
 CONST_NEIGHBOR_VERTEX_INDEX = 0
 CONST_WEIGHT_INDEX = 1
