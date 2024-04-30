@@ -30,4 +30,4 @@ def branch_and_bound(graph, start: int, goal: int) -> (int, float, [int]):
                         new_lb = new_cost
                         stack.append((new_lb, new_cost, new_path))
 
-    return best or "Nenhum caminho foi encontrado!"
+    return best[0] or "Nenhum caminho foi encontrado!"
