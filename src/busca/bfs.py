@@ -1,7 +1,7 @@
-from queue import deque
 from util import haversine
+from queue import deque
 
-def bfs(graph, start: int, goal: int):
+def BFS(graph, start, goal):
     assert(start in graph)
     assert(goal in graph)
     

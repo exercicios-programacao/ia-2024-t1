@@ -1,6 +1,6 @@
 from util import haversine
 
-def dfs(graph, start: int, goal: int):
+def DFS(graph, start, goal):
     assert(start in graph)
     assert(goal in graph)
     

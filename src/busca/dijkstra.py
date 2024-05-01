@@ -1,9 +1,34 @@
-"""Implementação do algoritmo de Dijkstra para o menor caminho em grafos."""
+from util import haversine
+import heapq
 
-from heapq import heapify, heappush, heappop
+def dijkstra(graph, start, goal):
+    dist = {vertex: float('inf') for vertex in graph.keys()}
+    prev = {vertex: None for vertex in graph.keys()}
+    dist[start] = 0
+    Q = [(0, start)]
+    analyzed_nodes = 0
 
-from util import reverse_path
+    while Q:
+        _, u = heapq.heappop(Q)
+        analyzed_nodes += 1
+        if u == goal:
+            break
+        for v, weight in graph[u][1].items():
+            alt = dist[u] + weight
+            if alt < dist[v]:
+                dist[v] = alt
+                prev[v] = u
+                heapq.heappush(Q, (alt, v))
 
+    path = []
+    current = goal
+    while current is not None:
+        path.insert(0, current)
+        current = prev[current]
 
-def dijkstra(graph, start: int, goal: int) -> (int, float, [int]):
-    """Busca em graph, um caminho entre start e goal usando Dijkstra."""
+    if path[0] != start:
+        return analyzed_nodes, float('inf'), []
+
+    path_length = sum(haversine(graph[path[i]][0][0], graph[path[i]][0][1], graph[path[i+1]][0][0], graph[path[i+1]][0][1]) for i in range(len(path) - 1))
+
+    return analyzed_nodes, path_length, path
