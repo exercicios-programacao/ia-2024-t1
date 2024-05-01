@@ -1,4 +1,10 @@
-import json
+"""
+Algoritmo de busca A*.
+
+Algoritmo de busca A* para encontrar o menor caminho entre dois nós.
+"""
+
+# import json
 from heapq import heappop, heappush
 
 # Assuming util is imported from the project or a library
@@ -6,52 +12,66 @@ from util import haversine, makeDict2
 
 
 def a_star(graph, start: int, goal: int) -> tuple:
+    """
+    Algoritmo de busca A* para encontrar o menor caminho entre dois nós.
 
-    graphDict = makeDict2(graph, goal)
-    graphDict[start]["custo"] = 0
+    Args:
+        graph (list): grafo com os nós e suas informações.
+        start (int): nó inicial.
+        goal (int): nó final.
+    Returns:
+        tuple: quantidade de nós visitados, custo do menor caminho e menor caminho.
+    """
+
+    grafo_dicionario = makeDict2(graph, goal)
+    grafo_dicionario[start]["custo"] = 0
     visitados = set()
     heap = [(0, start)]
 
     while heap:  # enquanto heap não estiver vazio
-        currentNode = heappop(heap)[1]
-        if currentNode in visitados:
+        current_node = heappop(heap)[1]
+        if current_node in visitados:
             continue
-        visitados.add(currentNode)
-        if currentNode == goal:
+        visitados.add(current_node)
+        if current_node == goal:
             break
-        for visinho in graphDict[currentNode]["visinhos"]:
+        for visinho in grafo_dicionario[current_node]["visinhos"]:
 
-            newCost = (
-                graphDict[currentNode]["custo"]
-                + graphDict[currentNode]["visinhos"][visinho]
+            new_cost = (
+                grafo_dicionario[current_node]["custo"]
+                + grafo_dicionario[current_node]["visinhos"][visinho]
             )  # new_cost = cost_so_far[current] + graph.cost(current, next)
             if (
-                newCost < graphDict[visinho]["custo"] and visinho not in visitados
+                new_cost < grafo_dicionario[visinho]["custo"]
+                and visinho not in visitados
             ):  # if next not in cost_so_far or new_cost < cost_so_far[next]:
                 print(visinho)
-                graphDict[visinho]["custo"] = newCost  # cost_so_far[next] = new_cost
-                priority = newCost + haversine(
-                    graphDict[goal]["posicao"]["x"],
-                    graphDict[goal]["posicao"]["y"],
-                    graphDict[visinho]["posicao"]["x"],
-                    graphDict[visinho]["posicao"]["y"],
+                grafo_dicionario[visinho][
+                    "custo"
+                ] = new_cost  # cost_so_far[next] = new_cost
+                priority = new_cost + haversine(
+                    grafo_dicionario[goal]["posicao"]["x"],
+                    grafo_dicionario[goal]["posicao"]["y"],
+                    grafo_dicionario[visinho]["posicao"]["x"],
+                    grafo_dicionario[visinho]["posicao"]["y"],
                 )  # priority = new_cost + heuristic(goal, next)
                 heappush(heap, (priority, visinho))  # frontier.put(next, priority)
-                graphDict[visinho][
+                grafo_dicionario[visinho][
                     "anteriores"
-                ] = currentNode  # came_from[next] = current
-    # print(json.dumps(graphDict, indent=4))
+                ] = current_node  # came_from[next] = current
+    # print(json.dumps(grafo_dicionario, indent=4))
     path = []
-    currentNode = goal
-    while currentNode != start:
-        path.append(currentNode)
-        currentNode = graphDict[currentNode]["anteriores"]
+    current_node = goal
+    while current_node != start:
+        path.append(current_node)
+        current_node = grafo_dicionario[current_node]["anteriores"]
     path.append(start)
     path.reverse()
-    with open("grafo.json", "w") as f:
-        f.write(json.dumps(graphDict, indent=4))
+    # para debug
+    # with open("grafo.json", "w", encoding="utf-8") as f:
+    #     f.write(json.dumps(grafo_dicionario, indent=4))
     # return count, length, path
-    return len(visitados), graphDict[goal]["custo"], path
+    return len(visitados), grafo_dicionario[goal]["custo"], path
 
 
 # |   start0   |  goal7   |   count5   | [0, 2, 5, 7] |
