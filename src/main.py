@@ -17,8 +17,8 @@ if __name__ == "__main__":
     # caminho_dijkstra = dijkstra(grafo, 0, 9)
     os.system("cls")
     print("148|", a_star(grafo, 0, 764))
-    print("-" * 10)
-    print("133|", a_star(grafo, 230, 850))
+    # print("-" * 10)
+    # print("133|", a_star(grafo, 230, 850))
 
 # | start | goal | count | path            |
 # |   0   | 764  |  148  | [0, 709, 710, 712, 714, 716, 718, 722, 727, 730, 734, 738, 743, 744, 748, 751, 752, 755, 758, 762, 763, 764] |
