@@ -10,24 +10,24 @@ def dijkstra(graph, start: int, goal: int):
     heap = [(0, start)]
 
     while heap:  # enquanto heap não estiver vazio
-        cost, node = heappop(heap)
-        if node in visitados:
+        cost, currentNode = heappop(heap)
+        if currentNode in visitados:
             continue
-        visitados.add(node)
+        visitados.add(currentNode)
 
-        if node == goal:
+        if currentNode == goal:
             shortestPath = reconstruirPath(graphDict, start, goal)
             return len(visitados), cost, shortestPath
 
-        for visinho, distanciaVisinho in graphDict[node]["visinhos"].items():
+        for visinho, distanciaVisinho in graphDict[currentNode]["visinhos"].items():
             if visinho not in visitados:
                 custoTotal = cost + distanciaVisinho
                 if custoTotal < graphDict[visinho]["custo"]:
                     graphDict[visinho]["custo"] = custoTotal
-                    graphDict[visinho]["anteriores"] = [node]
+                    graphDict[visinho]["anteriores"] = [currentNode]
                     heappush(heap, (custoTotal, visinho))
                 elif custoTotal == graphDict[visinho]["custo"]:
-                    graphDict[visinho]["anteriores"].append(node)
+                    graphDict[visinho]["anteriores"].append(currentNode)
 
     # não encontrou caminho
     return len(visitados), float("inf"), []
@@ -37,8 +37,8 @@ def reconstruirPath(graph, start, goal):
     path = [goal]
     while path[-1] != start:
         current = path[-1]
-        previousNodes = graph[current]["anteriores"]
-        if not previousNodes:
+        previouscurrentNodes = graph[current]["anteriores"]
+        if not previouscurrentNodes:
             return []  # no path
-        path.append(previousNodes[0])
+        path.append(previouscurrentNodes[0])
     return list(reversed(path))

@@ -1,5 +1,6 @@
 """Funções auxiliares para o projeto"""
 
+import json
 import math
 import sys
 
@@ -26,6 +27,7 @@ def haversine(lat1, lon1, lat2, lon2):
 
 
 def makeDict(graph):
+    """usada no dijkstra para criar um dicionário com os pontos do grafo e seus visinhos e custos"""
     dict = {}
     for ponto in range(len(graph)):
         dictVisinhos = {}
@@ -39,4 +41,31 @@ def makeDict(graph):
             "custo": sys.maxsize,
             "anteriores": [],
         }
+    return dict
+
+
+def makeDict2(graph, goal):
+    """usada no a_star para criar um dicionário com os pontos do grafo e seus visinhos e custos e distância até o goal que é a heuristica q eu vou usar"""
+    dict = {}
+    goalPos = graph[goal][0]
+    for ponto in range(len(graph)):
+        goalDistance = haversine(
+            float(graph[ponto][0][0]),
+            float(graph[ponto][0][1]),
+            float(goalPos[0]),
+            float(goalPos[1]),
+        )
+        dictVisinhos = {}
+        for visinho in graph[ponto][1]:
+            dictVisinhos[visinho[0]] = visinho[1]
+        x = float(graph[ponto][0][0])
+        y = float(graph[ponto][0][1])
+        dict[ponto] = {
+            "posicao": {"x": x, "y": y},
+            "visinhos": dictVisinhos,
+            "custo": float("inf"),
+            "anteriores": [],
+            "goalDistance": goalDistance,
+        }
+    # print(json.dumps(dict, indent=4))
     return dict
