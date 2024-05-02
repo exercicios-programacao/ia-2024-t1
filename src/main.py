@@ -1,10 +1,12 @@
-"""Utilize este arquivo para depurar seus algoritmos."""
-
 from graph import read_graph
+from busca import dfs
+from busca import bfs
+from busca import dijkstra
 from busca import a_star
+from busca import branch_and_bound
 
 
 if __name__ == "__main__":
-    grafo = read_graph("vertices.txt")
-    vertices_avaliados, custo, caminho = a_star(grafo, 1, 100)
-    print(vertices_avaliados, custo, caminho)
+    graph = read_graph('mapas/mini_map.txt')
+    #print(graph)
+    print(a_star(graph, 0, 6))

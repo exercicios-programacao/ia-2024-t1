@@ -1,7 +1,7 @@
 import sys
 
 def read_graph(filename: str):
-    graph = {}
+    adjacency_list = {}
     with open(filename, 'r') as file:
         lines = file.readlines()
     
@@ -12,13 +12,15 @@ def read_graph(filename: str):
             parts = line.split()
             if len(parts) == 3:
                 index, lat, long = parts
-                graph[int(index)] = [[float(lat), float(long)], {}]
+                adjacency_list[int(index)] = {'coordinates': [float(lat), float(long)], 'edges': {}}
 
         for line in lines[num_vertices + 2:]:
             parts = line.split()
             if len(parts) == 3:
                 source, target, distance = parts
                 source, target, distance = int(source), int(target), float(distance)
-                if source in graph:
-                    graph[source][1][target] = distance
-    return graph
+                if source in adjacency_list:
+                    adjacency_list[source]['edges'][target] = distance
+                if target in adjacency_list:
+                    adjacency_list[target]['edges'][source] = distance
+    return adjacency_list
