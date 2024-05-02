@@ -20,5 +20,6 @@ def read_graph(filename: str):
             )
             from_vertex, to_vertex, cost = [ int(from_vertex), int(to_vertex), float(cost) ]
             graph[from_vertex][1][to_vertex] = cost
+            graph[to_vertex][1][from_vertex] = cost
 
     return graph
