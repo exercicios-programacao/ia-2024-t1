@@ -5,7 +5,7 @@ from busca import dfs
 
 
 if __name__ == "__main__":
-    grafo = read_graph("C:\www\ia-2024-t1\mapas\mini_map.txt")
+    grafo = read_graph("C:\www\lasalle\ia-2024-t1\mapas\mini_map.txt")
 
-    caminho = dfs(grafo, 3, 7)
+    caminho = dfs(grafo, 0, 6)
     print(caminho)
