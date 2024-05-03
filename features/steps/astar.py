@@ -1,14 +1,14 @@
-"""Verifica solução com DFS."""
+"""Implementa steps para teste do A*."""
 
 from behave import given, then, when
 
 import busca
 
 
-@when('eu procuro o menor caminho com o algoritmo de Dijkstra')
-def _when_dijkstra_algorithm_is_used(context):
+@when('eu procuro o menor caminho com o algoritmo A*')
+def _when_astar_algorithm_is_used(context):
     try:
-        result = busca.dijkstra(
+        result = busca.a_star(
             context.graph, context.start, context.goal
         )
     except Exception as ex:
@@ -24,3 +24,4 @@ def _when_dijkstra_algorithm_is_used(context):
         context.vertex_count = count
         context.length = length
         context.path = path
+
