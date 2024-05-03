@@ -5,15 +5,15 @@ from util import haversine
 def a_star(graph, start: int, goal: int) -> (int, float, [int]):
     """Busca em graph, um caminho entre start e goal usando A*."""
     frontier = PriorityQueue()
-    frontier.put(start, 0)
+    frontier.put((0, start))
     came_from = {}
     const_so_far = {}
     came_from[start] = None
     const_so_far[start] = 0
     count_nodes = 0 
     while not frontier.empty():
-        current = frontier.get()
-
+        _, current = frontier.get()
+        count_nodes += 1
         if current == goal:
             predecessor = came_from[current]
             path = [current]
@@ -28,7 +28,6 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
             new_cost = const_so_far[current] + next_node_cost
 
             if next_node not in const_so_far or new_cost < const_so_far[next_node]:
-                count_nodes += 1
                 const_so_far[next_node] = new_cost
                 priority = new_cost + haversine(
                     graph[goal][0][0],
@@ -36,7 +35,6 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
                     graph[next_node][0][0], 
                     graph[next_node][0][1] 
                 )
-                frontier.put(next_node, priority)
+                frontier.put((priority, next_node))
                 came_from[next_node] = current
-    
     return (count_nodes, const_so_far[goal], path)
