@@ -10,7 +10,7 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
     const_so_far = {}
     came_from[start] = None
     const_so_far[start] = 0
-
+    count_nodes = 0 
     while not frontier.empty():
         current = frontier.get()
 
@@ -28,6 +28,7 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
             new_cost = const_so_far[current] + next_node_cost
 
             if next_node not in const_so_far or new_cost < const_so_far[next_node]:
+                count_nodes += 1
                 const_so_far[next_node] = new_cost
                 priority = new_cost + haversine(
                     graph[goal][0][0],
@@ -38,4 +39,4 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
                 frontier.put(next_node, priority)
                 came_from[next_node] = current
     
-    return (len(path) - 1, const_so_far[goal], path)
+    return (count_nodes, const_so_far[goal], path)

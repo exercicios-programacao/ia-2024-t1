@@ -10,6 +10,7 @@ def bfs(graph, start: int, goal: int) -> (int, float, [int]):
 
     queue = [(start, None)]  
     visitedNodes = {} 
+    count_nodes = 0
 
     while len(queue):
         currNode, predecessor = queue.pop(0)
@@ -25,9 +26,10 @@ def bfs(graph, start: int, goal: int) -> (int, float, [int]):
                 predecessor = visitedNodes.get(currNode) 
 
             path.reverse()  
-            return (len(path) - 1, totalCost, path)
+            return (count_nodes, totalCost, path)
 
         if currNode not in visitedNodes:
+            count_nodes += 1
             visitedNodes[currNode] = predecessor 
             
             for neighbor, cost in graph[currNode][1].items(): 

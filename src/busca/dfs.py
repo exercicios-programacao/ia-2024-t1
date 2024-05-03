@@ -10,6 +10,7 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
 
 	stack = [(start, None)]
 	visitedNodes = {}
+	count_nodes = 0
 	
 	while len(stack):
 		currNode, predecessor = stack.pop()
@@ -25,9 +26,10 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
 				predecessor = visitedNodes.get(currNode)
 
 			path.reverse()
-			return (len(path) - 1, totalCost, path)
+			return (count_nodes, totalCost, path)
 
 		if currNode not in visitedNodes:
+			count_nodes += 1
 			visitedNodes[currNode] = predecessor
 
 			for neighbor, cost in graph[currNode][1].items():
