@@ -34,6 +34,10 @@ def a_star(graph, start, goal):
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 cost_so_far[next] = new_cost
-                priority = new_cost + manhattan(graph, goal, next)
+                # As 2 linhas abaixo não são necessárias para a heurística de Manhattan
+                next_lat, next_lon = graph.nodes[next]['lat'], graph.nodes[next]['lon']
+                goal_lat, goal_lon = graph.nodes[next]['lat'], graph.nodes[next]['lon']
+
+                priority = new_cost + haversine(next_lat, goal_lat, next_lon, goal_lon) # "manhattan(graph, goal, next)" para calcular com heurística de Manhattan
                 frontier.put(next, priority)
                 came_from[next] = current
