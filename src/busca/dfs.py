@@ -2,8 +2,8 @@ from graph import get_neighbors
 
 CONST_NEIGHBOR_VERTEX_INDEX = 0
 CONST_WEIGHT_INDEX = 1
-length = 0.0
-path = []
+LENGTH = 0.0
+PATH = []
 
 
 def dfs(graph, start: int, goal: int) -> (int, float, [int]):
@@ -11,12 +11,11 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
     stack = []
     visited = []
     stack.append((start, 0))  # starts with 0 because you are in the vertex
-    is_first = True
     while stack:
         edge = stack.pop()
         if goal == edge[CONST_NEIGHBOR_VERTEX_INDEX]:
             process(edge)
-            return len(visited), length, path
+            return len(visited), LENGTH, PATH
         if edge[CONST_NEIGHBOR_VERTEX_INDEX] not in visited:
             process(edge)
             visited.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
@@ -25,6 +24,7 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
 
 
 def process(edge):
-    global length, path
-    path.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
-    length += edge[CONST_WEIGHT_INDEX]
+    """Para cada iteração do codigo processa o path e o lenght"""
+    global LENGTH, PATH
+    PATH.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
+    LENGTH += edge[CONST_WEIGHT_INDEX]
