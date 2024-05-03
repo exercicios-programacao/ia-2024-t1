@@ -2,6 +2,8 @@
 
 from queue import PriorityQueue
 
+from ..utils import haversine, manhattan
+
 
 def a_star(graph, start, goal):
     """Busca em graph, um caminho entre start e goal usando A*"""
@@ -35,11 +37,3 @@ def a_star(graph, start, goal):
                 priority = new_cost + manhattan(graph, goal, next)
                 frontier.put(next, priority)
                 came_from[next] = current
-
-def manhattan(graph, a, b):
-    """Heurística de Manhattan, usada como estimativa para o valor da aresta que une dois vértices"""
-    try:
-        a, b = graph.nodes[a], graph.nodes[b]
-    except KeyError:
-        raise Exception('Não foi possível achar os nodos para os valores a e b - Manhattan - A*')
-    return abs(a['lat'] - b['lat']) + abs(a['lon'] - b['lon'])
