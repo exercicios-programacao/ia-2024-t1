@@ -1,6 +1,6 @@
 """Implementação do algoritmo 'branch and bound'."""
 
-from queue import deque
+from collections import deque
 
 from ..graph import Graph
 
