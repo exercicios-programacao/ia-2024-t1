@@ -7,7 +7,7 @@ from ..utils import haversine, manhattan
 
 def a_star(graph, start, goal):
     """Busca em graph, um caminho entre start e goal usando A*"""
-    if not isinstance(graph, graph):
+    if not isinstance(graph, Graph):
         raise Exception('graph deve ser do tipo Graph')
     if not isinstance(start, int) or start not in graph.nodes:
         raise Exception('start deve ser do tipo int e deve constar em graph.nodes')
