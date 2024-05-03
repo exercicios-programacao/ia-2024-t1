@@ -2,6 +2,7 @@
 
 from queue import PriorityQueue
 
+from ..graph import Graph
 from ..utils import haversine, manhattan
 
 
