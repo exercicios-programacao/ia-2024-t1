@@ -22,6 +22,7 @@ def read_graph(filename: str):
 
 
 def get_neighbors(graph, vertex_id):
+    """Passado um vertex id, é feito a busca dos vizinhos dele no grafo."""
     try:
         return graph[vertex_id][CONST_EDGE_INDEX]
     except KeyError:

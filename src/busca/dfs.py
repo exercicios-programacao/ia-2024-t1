@@ -1,3 +1,4 @@
+"""Implementação DFS"""
 from graph import get_neighbors
 
 CONST_NEIGHBOR_VERTEX_INDEX = 0
@@ -24,7 +25,7 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
 
 
 def process(edge):
-    """Para cada iteração do codigo processa o path e o lenght"""
+    """Para cada iteração do codigo processa o path e o lenght."""
     global LENGTH, PATH
     PATH.append(edge[CONST_NEIGHBOR_VERTEX_INDEX])
     LENGTH += edge[CONST_WEIGHT_INDEX]
