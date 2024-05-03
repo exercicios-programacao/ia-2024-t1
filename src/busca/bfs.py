@@ -1,6 +1,6 @@
 """Implementação da busca em largura."""
 
-from queue import deque
+from collections import deque
 
 from ..graph import Graph
 
