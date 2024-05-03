@@ -24,3 +24,11 @@ def haversine(lat1, lon1, lat2, lon2):
 #
 # Não altere este comentário e adicione suas funções ao final do arquivo.
 #
+
+def manhattan(graph, a, b):
+    """Heurística de Manhattan, usada como estimativa para o valor da aresta que une dois vértices"""
+    try:
+        a, b = graph.nodes[a], graph.nodes[b]
+    except KeyError:
+        raise Exception('Não foi possível achar os nodos para os valores a e b - Manhattan - A*')
+    return abs(a['lat'] - b['lat']) + abs(a['lon'] - b['lon'])
