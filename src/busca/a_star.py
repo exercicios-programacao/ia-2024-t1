@@ -5,6 +5,13 @@ from queue import PriorityQueue
 
 def a_star(graph, start, goal):
     """Busca em graph, um caminho entre start e goal usando A*"""
+    if not isinstance(graph, Graph):
+        raise Exception('graph deve ser do tipo Graph')
+    if not isinstance(start, int) or start not in graph.nodes:
+        raise Exception('start deve ser do tipo int e deve constar em graph.nodes')
+    if not isinstance(goal, int) or goal not in graph.nodes:
+        raise Exception('goal deve ser do tipo int e deve constar em graph.nodes')
+    
     frontier = PriorityQueue()
     frontier.put(start, 0)
     came_from = {start: None}
