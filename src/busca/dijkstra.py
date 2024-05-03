@@ -1,6 +1,6 @@
 """Implementação do algoritmo de Dijkstra para o menor caminho em grafos."""
 
-import heapq import heappush, heappop
+from heapq import heappush, heappop
 
 from graph import Graph
 
