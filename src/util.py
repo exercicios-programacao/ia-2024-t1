@@ -1,4 +1,4 @@
-"""Funções auxiliares para o projeto"""
+"""Funções auxiliares para o projeto."""
 
 import math
 
@@ -24,3 +24,6 @@ def haversine(lat1, lon1, lat2, lon2):
 #
 # Não altere este comentário e adicione suas funções ao final do arquivo.
 #
+def reverse_path():
+    """reverse_path."""
+    return None

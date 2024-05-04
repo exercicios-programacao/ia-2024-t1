@@ -2,7 +2,7 @@
 
 from heapq import heapify, heappush, heappop
 
-from util import reverse_path
+# from util import reverse_path
 
 
 def dijkstra(graph, start: int, goal: int) -> (int, float, [int]):

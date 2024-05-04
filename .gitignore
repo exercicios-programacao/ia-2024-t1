@@ -10,6 +10,8 @@
 /build/
 /**/*.egg-info/
 RESULT
+.venv
+.idea
 
 # test tools
 .coverage
