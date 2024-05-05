@@ -13,11 +13,12 @@ def bfs(graph, start, goal):
     while queue:
         v, path = queue.popleft()
         if v == goal:
-            length = sum(haversine(graph[path[i]]['coordinates'][0],
-                                        graph[path[i]]['coordinates'][1],
-                                        graph[path[i + 1]]['coordinates'][0],
-                                        graph[path[i + 1]]['coordinates']
-                                        [1]) for i in range(len(path) - 1))
+            length = sum(haversine
+                         (graph[path[i]]['coordinates'][0],
+                          graph[path[i]]['coordinates'][1],
+                          graph[path[i + 1]]['coordinates'][0],
+                          graph[path[i + 1]]['coordinates']
+                          [1]) for i in range(len(path) - 1))
             return (len(visited), length, path)
         if v not in visited:
             visited.add(v)

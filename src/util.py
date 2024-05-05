@@ -1,4 +1,4 @@
-"""Funções auxiliares para o projeto"""
+"""Funções auxiliares para o projeto."""
 
 import math
 
