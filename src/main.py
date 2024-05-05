@@ -9,4 +9,4 @@ from busca import branch_and_bound
 if __name__ == "__main__":
     graph = read_graph('mapas/mini_map.txt')
     #print(graph)
-    print(a_star(graph, 0, 6))
+    print(branch_and_bound(graph, 0, 7))
