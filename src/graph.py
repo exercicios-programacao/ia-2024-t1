@@ -4,7 +4,7 @@
 def read_graph(filename):
     """Le uma estrutura de grafo de um arquivo e retorna a estrutura."""
     lista = {}
-    with open(filename, encoding="utf-8") as file:
+    with open(filename, 'r', encoding="utf-8") as file:
         lines = file.readlines()
         num_vertices = int(lines[0])
 
@@ -19,9 +19,9 @@ def read_graph(filename):
             parts = line.split()
             if len(parts) == 3:
                 start, goal, distance = parts
-                start, goal, distance = int(start), int(start), float(distance)
+                start, goal, distance = int(start), int(goal), float(distance)
                 if start in lista:
                     lista[start]['edges'][goal] = distance
-                if goal in lista:
+                if start in lista:
                     lista[goal]['edges'][start] = distance
     return lista
