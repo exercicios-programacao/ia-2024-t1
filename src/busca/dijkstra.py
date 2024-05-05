@@ -2,6 +2,7 @@
 
 from heapq import heappush, heappop
 
+
 def dijkstra(graph, start, goal):
     """Busca em graph, um caminho entre start e goal usando Dijkstra."""
     dist = {v: float('inf') for v in graph.keys()}
@@ -25,5 +26,5 @@ def dijkstra(graph, start, goal):
             if alt < dist[v]:
                 dist[v] = alt
                 prev[v] = u
-                heappush(q, (dist[v], v))       
+                heappush(q, (dist[v], v))
     return len(analyzed_nodes), float('inf'), []

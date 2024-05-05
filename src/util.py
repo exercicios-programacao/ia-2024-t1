@@ -1,6 +1,7 @@
-"""Funções auxiliares para o projeto"""
+"""Funções auxiliares para o projeto."""
 
 import math
+
 
 def haversine(lat1, lon1, lat2, lon2):
     """Calcula a distância, em metros, entre duas coordenadas GPS."""

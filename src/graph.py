@@ -1,8 +1,9 @@
 """Implementação de uma estrutura de grafo."""
 
+
 def read_graph(filename):
     """Le uma estrutura de grafo de um arquivo e retorna a estrutura."""
-    adjacency_list = {}
+    lista = {}
     with open(filename, encoding="utf-8") as file:
         lines = file.readlines()
         num_vertices = int(lines[0])
@@ -11,15 +12,16 @@ def read_graph(filename):
             parts = line.split()
             if len(parts) == 3:
                 index, lat, long = parts
-                adjacency_list[int(index)] = {'coordinates': [float(lat), float(long)], 'edges': {}}
+                lista[int(index)] = {'coordinates':
+                                     [float(lat), float(long)], 'edges': {}}
 
         for line in lines[num_vertices + 2:]:
             parts = line.split()
             if len(parts) == 3:
-                source, target, distance = parts
-                source, target, distance = int(source), int(target), float(distance)
-                if source in adjacency_list:
-                    adjacency_list[source]['edges'][target] = distance
-                if target in adjacency_list:
-                    adjacency_list[target]['edges'][source] = distance
-    return adjacency_list
+                start, goal, distance = parts
+                start, goal, distance = int(start), int(start), float(distance)
+                if start in lista:
+                    lista[start]['edges'][goal] = distance
+                if goal in lista:
+                    lista[goal]['edges'][start] = distance
+    return lista

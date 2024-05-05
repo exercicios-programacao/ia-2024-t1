@@ -3,6 +3,7 @@
 from queue import deque
 from util import haversine
 
+
 def bfs(graph, start, goal):
     """Busca um caminho entre start e goal usando busca em largura."""
     assert start in graph
@@ -15,8 +16,8 @@ def bfs(graph, start, goal):
             path_length = sum(haversine(graph[path[i]]['coordinates'][0],
                                         graph[path[i]]['coordinates'][1],
                                         graph[path[i + 1]]['coordinates'][0],
-                                        graph[path[i + 1]]['coordinates'][1])
-                                        for i in range(len(path) - 1))
+                                        graph[path[i + 1]]['coordinates']
+                                        [1]) for i in range(len(path) - 1))
             return (len(visited), path_length, path)
         if v not in visited:
             visited.add(v)
