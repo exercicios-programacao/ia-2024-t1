@@ -1,6 +1,4 @@
 def dfs(graph, start: int, goal: int) -> (int, float, [int]):
-    """Busca um caminho entre start e goal usando busca em profundidade."""
-
     stack = [(start, None)]
     visited_nodes = {}
     count_nodes = 0
@@ -14,18 +12,18 @@ def dfs(graph, start: int, goal: int) -> (int, float, [int]):
                 
             while predecessor is not None:
                 path.append(predecessor)
-                total_cost += graph[predecessor][current_node]['cost']  # Get the cost
+                total_cost += graph[predecessor][1][current_node]
                 current_node = predecessor
                 predecessor = visited_nodes.get(current_node)
 
-            path.reverse()
+            path.reverse()  
             return (count_nodes, total_cost, path)
 
         if current_node not in visited_nodes:
             count_nodes += 1
             visited_nodes[current_node] = predecessor
 
-            for neighbor, edge_cost in graph[current_node].items():
+            for neighbor, edge_cost in graph[current_node][1].items():
                 if neighbor not in visited_nodes:
                     stack.append((neighbor, current_node))
     

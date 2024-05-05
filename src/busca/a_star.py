@@ -2,7 +2,6 @@ from queue import PriorityQueue
 from util import haversine
 
 def a_star(graph, start: int, goal: int) -> (int, float, [int]):
-    """Find a path from start to goal in the given graph using A* algorithm."""
     open_set = PriorityQueue()
     open_set.put(start, 0)
     came_from = {}
@@ -36,6 +35,5 @@ def a_star(graph, start: int, goal: int) -> (int, float, [int]):
                 )
                 open_set.put(neighbor, f_score)
                 came_from[neighbor] = current
-    
-    # If no path found
+                
     return (explored_nodes, float('inf'), [])
