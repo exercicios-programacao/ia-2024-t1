@@ -1,12 +1,11 @@
-import sys
+"""Implementação de uma estrutura de grafo."""
 
-def read_graph(filename: str):
+def read_graph(filename):
+    """Le uma estrutura de grafo de um arquivo e retorna a estrutura."""
     adjacency_list = {}
-    with open(filename, 'r') as file:
+    with open(filename, encoding="utf-8") as file:
         lines = file.readlines()
-    
         num_vertices = int(lines[0])
-        num_edges = int(lines[num_vertices + 1])
 
         for line in lines[1:num_vertices + 1]:
             parts = line.split()

@@ -1,5 +1,4 @@
-from queue import Queue
-from util import haversine
+"""Implementação do algoritmo 'branch and bound'."""
 
 def branch_and_bound(graph, start, goal):
-    pass
+    """Busca um caminho entre start e goal usando Branch and Bound."""

@@ -1,3 +1,5 @@
+"""Funções auxiliares para o projeto"""
+
 import math
 
 def haversine(lat1, lon1, lat2, lon2):
