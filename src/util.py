@@ -2,7 +2,6 @@
 
 import math
 
-
 def haversine(lat1, lon1, lat2, lon2):
     """Calcula a distância, em metros, entre duas coordenadas GPS."""
     dLat = (lat2 - lat1) * math.pi / 180.0  # pylint: disable=invalid-name
@@ -24,3 +23,9 @@ def haversine(lat1, lon1, lat2, lon2):
 #
 # Não altere este comentário e adicione suas funções ao final do arquivo.
 #
+
+def heuristic(node, goal_node):
+    x1, y1 = float(node[0][0]), float(node[0][1])
+    x2, y2 = float(goal_node[0][0]), float(goal_node[0][1]) 
+    val = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return val  # Euclidean distance
