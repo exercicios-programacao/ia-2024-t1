@@ -6,17 +6,17 @@ from busca import a_star, bfs, branch_and_bound, dfs, dijkstra
 from graph import read_graph
 
 if __name__ == "__main__":
-    grafo = read_graph("ia-2024-t1/mapas/small_map.txt")
+    grafo = read_graph("ia-2024-t1/mapas/mini_map.txt")
     # grafo = read_graph("ia-2024-t1/micro_mapas/_map.txt")
     # grafo = read_graph("ia-2024-t1/mapas/small_map.txt")
     # grafo = read_graph("ia-2024-t1/mapas/medium_map.txt")
     # grafo = read_graph("ia-2024-t1/mapas/full_map.txt")
     # caminho_dfs = dfs(grafo, 0, 9)
     # caminho_bfs = bfs(grafo, 0, 9)
-    # caminho_bb = branch_and_bound(grafo, 0, 9)
+    caminho_bb = branch_and_bound(grafo, 0, 9)
     # caminho_dijkstra = dijkstra(grafo, 0, 9)
-    os.system("cls")
-    print("148|", a_star(grafo, 0, 764))
+    # os.system("cls")
+    # print("148|", a_star(grafo, 0, 764))
     # print("-" * 10)
     # print("133|", a_star(grafo, 230, 850))
 
@@ -26,6 +26,6 @@ if __name__ == "__main__":
 
 # print(caminho_dfs)
 # print(caminho_bfs)
-# print(caminho_bb)
+print(caminho_bb)
 # print(caminho_dijkstra)
 # print(caminho_a_star)
