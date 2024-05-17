@@ -1,37 +1,41 @@
+"""Implementação do algoritmo de bfs."""
+
+from util import mountpath
+
+
 def bfs(graph, start: int, goal: int) -> (int, float, [int]):
     """Busca um caminho entre start e goal usando busca em largura."""
-
     try:
-        graph[start]
-        graph[goal]
+        assert graph[start]
+        assert graph[goal]
     except KeyError:
         print("Node doesn't exist")
         return None
 
-    queue = [(start, None)]  
-    visitedNodes = {} 
+    queue = [(start, None)]
+    visited_nodes = {}
     count_nodes = 0
 
-    while len(queue):
-        currNode, predecessor = queue.pop(0)
+    while queue:
+        curr_node, predecessor = queue.pop(0)
 
-        if goal == currNode:  
-            path = [currNode]  
-            totalCost = 0  
-  
-            while predecessor is not None: 
-                path.append(predecessor)
-                totalCost += graph[predecessor][1][currNode] 
-                currNode = predecessor
-                predecessor = visitedNodes.get(currNode) 
+        if goal == curr_node:
 
-            path.reverse()  
-            return (count_nodes, totalCost, path)
+            path, total_cost = mountpath(
+                visited_nodes,
+                curr_node,
+                predecessor,
+                graph
+            )
 
-        if currNode not in visitedNodes:
+            break
+
+        if curr_node not in visited_nodes:
             count_nodes += 1
-            visitedNodes[currNode] = predecessor 
-            
-            for neighbor, cost in graph[currNode][1].items(): 
-                if neighbor not in visitedNodes:  
-                    queue.append((neighbor, currNode)) 
+            visited_nodes[curr_node] = predecessor
+
+            for neighbor, _ in graph[curr_node][1].items():
+                if neighbor not in visited_nodes:
+                    queue.append((neighbor, curr_node))
+
+    return (count_nodes, total_cost, path)

@@ -1,45 +1,49 @@
+"""Implementação do algoritmo de branch and bound."""
+
+from util import mountpath
+
+
 def branch_and_bound(graph, start: int, goal: int) -> (int, float, [int]):
     """Busca um caminho entre start e goal usando branch and bound."""
-
     try:
-        graph[start]
-        graph[goal]
-    except KeyError:
+        assert graph[start]
+        assert graph[goal]
+    except RuntimeError:
         print("Node doesn't exist")
         return None
 
     queue = [(start, None)]
-    visitedNodes = {} 
+    visited_nodes = {}
     best_path = None
     best_cost = float('inf')
-    count_nodes = 0;
+    count_nodes = 0
 
-    while len(queue):
-        currNode, predecessor = queue.pop(0)
+    while queue:
+        current_node, predecessor = queue.pop(0)
 
-        if goal == currNode:
-            path = [currNode]
-            totalCost = 0
+        if goal == current_node:
 
-            while predecessor is not None: 
-                path.append(predecessor)
-                totalCost += graph[predecessor][1][currNode] 
-                currNode = predecessor
-                predecessor = visitedNodes.get(currNode) 
+            path, total_cost = mountpath(
+                visited_nodes,
+                current_node,
+                predecessor,
+                graph
+            )
 
-            path.reverse()
-            if totalCost < best_cost:
+            if total_cost < best_cost:
                 best_path = path
-                best_cost = totalCost
+                best_cost = total_cost
             continue
 
-        if currNode not in visitedNodes:
+        if current_node not in visited_nodes:
             count_nodes += 1
-            visitedNodes[currNode] = predecessor 
+            visited_nodes[current_node] = predecessor
 
-            for neighbor, cost in graph[currNode][1].items(): 
-                if neighbor not in visitedNodes and cost < best_cost:
-                    queue.append((neighbor, currNode))
+            for neighbor, cost in graph[current_node][1].items():
+                if neighbor not in visited_nodes and cost < best_cost:
+                    queue.append((neighbor, current_node))
 
     if best_path is not None:
         return (count_nodes, best_cost, best_path)
+
+    return None

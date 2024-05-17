@@ -1,65 +1,71 @@
 """Implementação do algoritmo de Dijkstra para o menor caminho em grafos."""
-
-from queue import PriorityQueue
-from heapq import heappush, heappop, heapify
-from util import haversine
+from heapq import heappush, heappop
 
 
 def dijkstra(graph, start: int, goal: int) -> (int, float, [int]):
-    nodesQueue = []
-    processedNodes = []
-    tempNodes = {}
-    heappush(nodesQueue, (0, start))
+    """Busca o menor caminho entre start e goal usando o algoritmo dijkstra."""
+    nodes_queue = []
+    processed_nodes = []
+    temp_nodes = {}
+    heappush(nodes_queue, (0, start))
 
-    tempNodes[start] = {
+    temp_nodes[start] = {
         'predecessor': None,
-        'currWeight': 0,
-        'allPredecessors': [None]
+        'curr_weight': 0,
+        'all_predec': [None]
     }
 
-    while nodesQueue:
-        weight, node = heappop(nodesQueue)
+    while nodes_queue:
+        _, node = heappop(nodes_queue)
 
-        if(node in processedNodes):
+        if node in processed_nodes:
             continue
-            
-        processedNodes.append(node)
-        print("nó atual",node)
-        if(node == goal):
-            totalWeight = tempNodes[node]['currWeight']
-            path = [goal]
-            currentPathNode = goal
 
-            while(path[-1] != start):
-                predecessor = tempNodes[currentPathNode]['predecessor']
-                currentPathNode = predecessor
-                path.append(predecessor)
+        processed_nodes.append(node)
+
+        if node == goal:
+            path = [goal]
+            current_path = goal
+
+            while path[-1] != start:
+                current_path = temp_nodes[current_path]['predecessor']
+                path.append(current_path)
 
             path.reverse()
-            return (len(processedNodes), totalWeight, path)
-        
-        visitedNode = tempNodes[node] 
-        for neighborNode, neighborNodeWeight in graph[node][1].items():
-            if(neighborNode not in tempNodes or node not in tempNodes[neighborNode]['allPredecessors']):
-                newWeight = visitedNode['currWeight'] + neighborNodeWeight
-                newPredecessor = node
 
-                if (neighborNode not in tempNodes):
-                    heappush(nodesQueue, (newWeight, neighborNode))
-                    tempNodes[neighborNode] = {
-                        'predecessor': newPredecessor,
-                        'currWeight': newWeight,
-                        'allPredecessors': [newPredecessor]
+            break
+
+        visited_node = temp_nodes[node]
+        for neighbor_node, neighbor_weight in graph[node][1].items():
+            if (
+                neighbor_node not in temp_nodes or
+                node not in temp_nodes[neighbor_node]['all_predec']
+            ):
+                new_weight = visited_node['curr_weight'] + neighbor_weight
+                new_predec = node
+
+                if neighbor_node not in temp_nodes:
+                    heappush(nodes_queue, (new_weight, neighbor_node))
+                    temp_nodes[neighbor_node] = {
+                        'predecessor': new_predec,
+                        'curr_weight': new_weight,
+                        'all_predec': [new_predec]
                     }
-                elif (newWeight < tempNodes[neighborNode]['currWeight']):
-                    heappush(nodesQueue, (newWeight, neighborNode))
-                    newAllPredecessors = tempNodes[neighborNode]['allPredecessors']
-                    newAllPredecessors.append(newPredecessor)
+                elif new_weight < temp_nodes[neighbor_node]['curr_weight']:
+                    heappush(nodes_queue, (new_weight, neighbor_node))
+                    new_all_predec = temp_nodes[neighbor_node]['all_predec']
+                    new_all_predec.append(new_predec)
 
-                    tempNodes[neighborNode] = {
-                        'predecessor': newPredecessor,
-                        'currWeight': newWeight,
-                        'allPredecessors': newAllPredecessors
+                    temp_nodes[neighbor_node] = {
+                        'predecessor': new_predec,
+                        'curr_weight': new_weight,
+                        'all_predec': new_all_predec
                     }
                 else:
-                    tempNodes[neighborNode]['allPredecessors'].append(newPredecessor)
+                    temp_nodes[neighbor_node]['all_predec'].append(new_predec)
+
+    return (
+        len(processed_nodes),
+        temp_nodes[node]['curr_weight'],
+        path
+    )

@@ -1,4 +1,4 @@
-"""Funções auxiliares para o projeto"""
+"""Funções auxiliares para o projeto."""
 
 import math
 
@@ -24,3 +24,18 @@ def haversine(lat1, lon1, lat2, lon2):
 #
 # Não altere este comentário e adicione suas funções ao final do arquivo.
 #
+
+def mountpath(visited_nodes, curr_node, predecessor, graph):
+    """Monta o path do caminho encontrado."""
+    path = [curr_node]
+    total_cost = 0
+
+    while predecessor is not None:
+        path.append(predecessor)
+        total_cost += graph[predecessor][1][curr_node]
+        curr_node = predecessor
+        predecessor = visited_nodes.get(curr_node)
+
+    path.reverse()
+
+    return (path, total_cost)
