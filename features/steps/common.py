@@ -3,7 +3,7 @@
 import os
 from behave import given, then
 
-import graph
+import graph as graph
 
 
 @given('a descrição de um grafo a partir do arquivo "{filename}"')
