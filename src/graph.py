@@ -1,20 +1,27 @@
 """Implementação de uma estrutura de grafo."""
 
-import sys
 
-
-def read_graph(filename: str):
+def read_graph(filename):
     """Le uma estrutura de grafo de um arquivo e retorna a estrutura."""
-    graph = None
-    with open(filename, "rt") as input_file:
-        vertex_count = int(input_file.readline().strip())
-        for _ in range(vertex_count):
-            index, latitude, longitude = input_file.readline().strip().split()
-            
-        edge_count = int(input_file.readline().strip())
-        for _ in range(edge_count):
-            from_vertex, to_vertex, cost = (
-                input_file.readline().strip().split()
-            )
-    
-    return graph
+    lista = {}
+    with open(filename, 'r', encoding="utf-8") as file:
+        lines = file.readlines()
+        num_vertices = int(lines[0])
+
+        for line in lines[1:num_vertices + 1]:
+            parts = line.split()
+            if len(parts) == 3:
+                index, lat, long = parts
+                lista[int(index)] = {'coordinates':
+                                     [float(lat), float(long)], 'edges': {}}
+
+        for line in lines[num_vertices + 2:]:
+            parts = line.split()
+            if len(parts) == 3:
+                start, goal, distance = parts
+                start, goal, distance = int(start), int(goal), float(distance)
+                if start in lista:
+                    lista[start]['edges'][goal] = distance
+                if start in lista:
+                    lista[goal]['edges'][start] = distance
+    return lista
